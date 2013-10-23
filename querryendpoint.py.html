@@ -1,0 +1,26 @@
+<html><head>
+<title>querryendpoint.py</title>
+<meta name="Generator" content="htmlizer/[twisted, version 11.1.0]" />
+<link rel="alternate" href="querryendpoint.py" type="text/x-python" />
+
+</head>
+<body>
+<pre><span class="py-src-keyword">import</span> <span class="py-src-variable">keystoneclient</span>.<span class="py-src-variable">v2_0</span>.<span class="py-src-variable">client</span> <span class="py-src-keyword">as</span> <span class="py-src-variable">ksclient</span>
+<span class="py-src-keyword">from</span> <span class="py-src-variable">credentials</span> <span class="py-src-keyword">import</span> <span class="py-src-variable">get_keystone_creds</span>
+
+<span class="py-src-variable">creds</span> = <span class="py-src-variable">get_keystone_creds</span>() <span class="py-src-comment"># See &lt;a href="openrc-creds" /&gt;</span>
+<span class="py-src-variable">keystone</span> = <span class="py-src-variable">ksclient</span>.<span class="py-src-variable">Client</span>(**<span class="py-src-variable">creds</span>)
+<span class="py-src-variable">glance_endpoint</span> = <span class="py-src-variable">keystone</span>.<span class="py-src-variable">service_catalog</span>.<span class="py-src-variable">url_for</span>(<span class="py-src-variable">service_type</span>=<span class="py-src-string">'image'</span>,
+                                                       <span class="py-src-variable">endpoint_type</span>=<span class="py-src-string">'publicURL'</span>)
+<span class="py-src-variable">network_endpoint</span> = <span class="py-src-variable">keystone</span>.<span class="py-src-variable">service_catalog</span>.<span class="py-src-variable">url_for</span>(<span class="py-src-variable">service_type</span>=<span class="py-src-string">'network'</span>,
+                                                       <span class="py-src-variable">endpoint_type</span>=<span class="py-src-string">'publicURL'</span>)
+<span class="py-src-variable">compute_endpoint</span> = <span class="py-src-variable">keystone</span>.<span class="py-src-variable">service_catalog</span>.<span class="py-src-variable">url_for</span>(<span class="py-src-variable">service_type</span>=<span class="py-src-string">'compute'</span>,
+                                                       <span class="py-src-variable">endpoint_type</span>=<span class="py-src-string">'publicURL'</span>)
+<span class="py-src-variable">neutron_endpoint</span> = <span class="py-src-variable">keystone</span>.<span class="py-src-variable">service_catalog</span>.<span class="py-src-variable">url_for</span>(<span class="py-src-variable">service_type</span>=<span class="py-src-string">'neutron'</span>,
+                                                       <span class="py-src-variable">endpoint_type</span>=<span class="py-src-string">'publicURL'</span>)
+<span class="py-src-keyword">print</span> <span class="py-src-string">"glance endpoint is : "</span> + <span class="py-src-variable">glance_endpoint</span>
+<span class="py-src-keyword">print</span> <span class="py-src-string">"network endpoint is : "</span> + <span class="py-src-variable">network_endpoint</span>
+<span class="py-src-keyword">print</span> <span class="py-src-string">"compute endpoint is : "</span> +  <span class="py-src-variable">compute_endpoint</span>
+<span class="py-src-keyword">print</span> <span class="py-src-string">"neutron endpoint is : "</span> +  <span class="py-src-variable">neutron_endpoint</span>
+</pre>
+</body>
