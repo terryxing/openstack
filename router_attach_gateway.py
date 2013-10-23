@@ -11,80 +11,42 @@ def createrouter():
  
     # authenticate the nuetron client 
 
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='demo', auth_url=os.environ['OS_AUTH_URL'])
+    neutron = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
     neutron.format= 'json'
 
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if False:
-
-
-
     # check if the router name exists or not
 
     routername = str(argv[1])
+
     if neutron.list_routers(name=routername)['routers']:
-        print "existing router ID:",  neutron.list_routers(name=routername)["routers"][0]["id"]
-        print "router name exists... generating a random name for that"
-        routername = routername + str(random.randrange(1,100))
-        print "newly generated routername is :", routername
-
+        routerid =  neutron.list_routers(name=routername)["routers"][0]["id"]
     else:
-        print "router new is okay to be used  !!!  router is about to be created... " 
+        print "router does not exist. " 
 
-
-    # get the uuid of external network
-
-    if neutron.list_networks(name='public')['networks']:
-        print "public network exists"
-        publicnetid = neutron.list_networks(name='public')['networks'][0]['id']
-        print "public network id is : ",  publicnetid
-    else:
-        print 'public network does not exist, exiting .....'
-        exit(0) 
 
     
-    # get the uuid of the subnet by cidr (e.g.,172.16.0.0/24)
-    
-    subnetids = []
-    for subnetcidr in argv[2:]:
-        print "subnetcidr list is : ", subnetcidr
-      
-        if neutron.list_subnets(cidr=subnetcidr)['subnets']:
-            subnetid = neutron.list_subnets(cidr=subnetcidr)['subnets'][0]['id']
-            print 'the subnet ID is:', subnetid
-            subnetids.append(subnetid)
-        else:
-            print 'the subnet does not exist, please check using "neutron subnet-list"'
+    publicnetid = neutron.list_networks(name='public')['networks'][0]['id']
+    print "public net id is", publicnetid
+
+
+#    cidr = str(argv[2])
+
+#    subnetid = neutron.list_subnets(cidr=cidr)['subnets'][0]['id']
+
+#    subnet_id = {'subnet_id': subnetid}
+
+#    neutron.add_interface_router(routerid, body=subnet_id)
+
+
+   # externalgw = {'external_gateway_info': {'network_id': publicnetid }}
+    externalgw = {'network_id': publicnetid }
+    neutron.add_gateway_router(routerid, body=externalgw)
+
+
+if False:
    
- 
     # create router with info above
     
     routers = {'name': routername, 'admin_state_up': True}
@@ -102,8 +64,6 @@ if False:
         subnet_id = {"subnet_id": subnetid }
         neutron.add_interface_router(subnet_id)
 
-
-if False:
 
     # add public interface to the router
 
