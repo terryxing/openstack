@@ -33,7 +33,9 @@ def createnetwork():
     #allocationpool = {'start': '172.16.0.10', 'end': '172.16.0.100'}
     #subnets = {'network_id':'91249d38-a261-4482-be5a-a79397dbdffb', 'ip_version':4, 'cidr': '172.16.0.0/24', 'allocation_pools':allocationpool}
 
-    subnets = {'network_id':id, 'ip_version':4, 'cidr': '172.16.0.0/24'}
+    cidr = str(argv[2])
+
+    subnets = {'network_id':id, 'ip_version':4, 'cidr': cidr}
     neutron.create_subnet({'subnet': subnets})
 
     print "subnet: ", subnets['cidr'], " is created for network:", netname
@@ -43,4 +45,9 @@ def createnetwork():
 
 
 if __name__ == "__main__":
-    createnetwork()
+     
+    if len(argv)!=3:
+        print 'this script takes exactly two arguments, usages:  ./createnetwork.py  networkname cidr'
+        exit()
+    else:
+        createnetwork()

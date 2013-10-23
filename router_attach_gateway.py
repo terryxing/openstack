@@ -15,6 +15,38 @@ def createrouter():
     neutron.format= 'json'
 
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if False:
+
+
+
     # check if the router name exists or not
 
     routername = str(argv[1])
@@ -86,9 +118,9 @@ if False:
 
 if __name__ == "__main__":
 
-    if len(argv)<3:
-         print "This function takes at least  two arguments, usage: ./createrouter.py routername  *subnet_cidr"
-         exit(0) 
-    else:
-        print 'valid input ! '
+#    if len(argv)<3:
+#         print "This function takes at least  two arguments, usage: ./createrouter.py routername  *subnet_cidr"
+#         exit(0) 
+#    #else:
+#        print 'valid input ! '
         createrouter()
