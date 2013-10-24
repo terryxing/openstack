@@ -11,7 +11,7 @@ def createrouter():
  
     # authenticate the nuetron client 
 
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='demo', auth_url=os.environ['OS_AUTH_URL'])
+    neutron = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
     neutron.format= 'json'
 
 
@@ -68,7 +68,7 @@ def createrouter():
     
     for subnetid in subnetids:
         subnet_id = {"subnet_id": subnetid }
-        neutron.add_interface_router(subnet_id)
+        neutron.add_interface_router(routerid, body=subnet_id)
 
 
 if False:

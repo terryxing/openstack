@@ -5,16 +5,12 @@ import novaclient.v1_1.client as nvclient
 from credentials import get_nova_creds
 from neutronclient.v2_0 import client
 def createinstance():
+    
     creds = get_nova_creds()
     nova = nvclient.Client(**creds)
 
-#if not nova.keypairs.findall(name="mykey"):
-#    with open(os.path.expanduser(''))
 
-# a key pair named "mykey" is already created. 
-
-
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='demo', auth_url=os.environ['OS_AUTH_URL'])
+    neutron = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
     neutron.format= 'json'
     netname = str(argv[2])
 
@@ -27,8 +23,6 @@ def createinstance():
     else:
         netid =  neutron.list_networks(name=netname)["networks"][0]["id"]
 
-# prepare all paremeters image, flavor, instancename, networkinfo
-
 
     image = nova.images.find(name="cirros-0.3.1-x86_64-uec")
     flavor = nova.flavors.find(name="m1.tiny")
@@ -39,9 +33,8 @@ def createinstance():
 
     #networkinfo = {'uuid':'56b68aef-8080-45de-9206-152b8d0229b6'}
 
-        
 
-    instance = nova.servers.create(name=instancename, image=image, flavor=flavor, key_name="mykey", nics=networkinfo)
+    instance = nova.servers.create(name=instancename, image=image, flavor=flavor, nics=networkinfo)
 
     status = instance.status
     while status =='BUILD':
@@ -52,4 +45,9 @@ def createinstance():
 
 
 if __name__ == "__main__":
-    createinstance()
+    
+    if len(argv)!=3:
+        print "this scription takes exactly 2 argument, usage: ./createinstance.py instancename networkname"
+        exit(0)
+    else:    
+        createinstance()
