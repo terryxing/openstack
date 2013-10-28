@@ -14,7 +14,8 @@ def createinstance():
 # a key pair named "mykey" is already created. 
 
 
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='demo', 
+    neutron = client.Client(username='admin', password='supersecret', 
+                            tenant_name='demo', 
                             auth_url=os.environ['OS_AUTH_URL'])
     neutron.format= 'json'
     netname = str(argv[2])
@@ -42,7 +43,9 @@ def createinstance():
 
         
 
-    instance = nova.servers.create(name=instancename, image=image, flavor=flavor, key_name="mykey", nics=networkinfo)
+    instance = nova.servers.create(name=instancename, image=image, 
+                                   flavor=flavor, key_name="mykey", 
+                                   nics=networkinfo)
 
     status = instance.status
     while status =='BUILD':
