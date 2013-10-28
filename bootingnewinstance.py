@@ -14,7 +14,8 @@ def createinstance():
 # a key pair named "mykey" is already created. 
 
 
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='demo', auth_url=os.environ['OS_AUTH_URL'])
+    neutron = client.Client(username='admin', password='supersecret', tenant_name='demo', 
+                            auth_url=os.environ['OS_AUTH_URL'])
     neutron.format= 'json'
     netname = str(argv[2])
 
