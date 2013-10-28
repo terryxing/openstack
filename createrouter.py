@@ -11,7 +11,9 @@ def createrouter():
  
     # authenticate the nuetron client 
 
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
+    neutron = client.Client(username='admin', password='supersecret', 
+                            tenant_name='admin', 
+                            auth_url=os.environ['OS_AUTH_URL'])
     neutron.format= 'json'
 
 
