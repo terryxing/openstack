@@ -10,7 +10,7 @@ def createinstance():
     nova = nvclient.Client(**creds)
 
 
-    quantum = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
+    quantum = client.Client(username='admin', password='admin', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
     quantum.format= 'json'
     netname = str(argv[3])
 
@@ -25,7 +25,7 @@ def createinstance():
 
     imagename = str(argv[1])
     image = nova.images.find(name=imagename)
-    flavor = nova.flavors.find(name="ubuntu")
+    flavor = nova.flavors.find(name="m1.ubuntuserver")
     instancename = str(argv[2])
     networkinfo =[{'net-id':netid}]
     

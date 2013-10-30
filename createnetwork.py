@@ -6,7 +6,7 @@ from quantumclient.v2_0 import client
 #logging.basicConfig(level=logging.DEBUG)
 
 def createnetwork():
-    quantum = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
+    quantum = client.Client(username='admin', password='admin', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
     quantum.format= 'json'
     netname = str(argv[1])
 

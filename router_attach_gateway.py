@@ -11,7 +11,7 @@ def createrouter():
  
     # authenticate the nuetron client 
 
-    quantum = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
+    quantum = client.Client(username='admin', password='admin',  tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
     quantum.format= 'json'
 
 
@@ -27,7 +27,8 @@ def createrouter():
 
 
     
-    publicnetid = quantum.list_networks(name='public')['networks'][0]['id']
+    publicnetname = str(argv[2])
+    publicnetid = quantum.list_networks(name=publicnetname)['networks'][0]['id']
     print "public net id is", publicnetid
 
 
@@ -78,8 +79,8 @@ if False:
 
 if __name__ == "__main__":
 
-    if len(argv)!=2:
-         print "This function takes at 1  arguments, usage: ./router_add_gateway.py routername"
+    if len(argv)!=3:
+         print "This function takes at 1  arguments, usage: ./router_add_gateway.py routername publicnetname"
          exit(0) 
     else:
         print 'valid input ! '
