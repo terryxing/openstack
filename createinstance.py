@@ -3,25 +3,25 @@ from sys import argv
 import time
 import novaclient.v1_1.client as nvclient
 from credentials import get_nova_creds
-from neutronclient.v2_0 import client
+from quantumclient.v2_0 import client
 def createinstance():
     
     creds = get_nova_creds()
     nova = nvclient.Client(**creds)
 
 
-    neutron = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
-    neutron.format= 'json'
+    quantum = client.Client(username='admin', password='supersecret', tenant_name='admin', auth_url=os.environ['OS_AUTH_URL'])
+    quantum.format= 'json'
     netname = str(argv[3])
 
     print netname
 
 
-    if not neutron.list_networks(name=netname)['networks']:
+    if not quantum.list_networks(name=netname)['networks']:
         print "network does not exist"
         exit(0)
     else:
-        netid =  neutron.list_networks(name=netname)["networks"][0]["id"]
+        netid =  quantum.list_networks(name=netname)["networks"][0]["id"]
 
     imagename = str(argv[1])
     image = nova.images.find(name=imagename)
