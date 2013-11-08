@@ -25,7 +25,7 @@ def createinstance():
 
     imagename = str(argv[1])
     image = nova.images.find(name=imagename)
-    flavor = nova.flavors.find(name="ubuntu")
+    flavor = nova.flavors.find(name="m1.ubuntu")
     instancename = str(argv[2])
     networkinfo =[{'net-id':netid}]
     
